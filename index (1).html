@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Attendance Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Student Attendance Tracker</h1>
+      <p>Manage students and daily attendance</p>
+    </div>
+    <span class="live-tag">● Attendance Portal</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <h2>Attendance Dashboard</h2>
+        <p>Track records, monitor attendance and identify low attendance.</p>
+      </div>
+      <label class="threshold-box">
+        Low attendance threshold (%)
+        <input id="threshold" type="number"
+          min="1" max="100" value="75">
+      </label>
+    </section>
+
+    <section class="summary-grid">
+      <article class="summary-card purple">
+        <span>Total Students</span>
+        <strong id="totalStudents">0</strong>
+      </article>
+      <article class="summary-card green">
+        <span>Present Today</span>
+        <strong id="presentStudents">0</strong>
+      </article>
+      <article class="summary-card red">
+        <span>Absent Today</span>
+        <strong id="absentStudents">0</strong>
+      </article>
+      <article class="summary-card orange">
+        <span>Overall Attendance</span>
+        <strong id="overallAttendance">0%</strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Student Management</h2>
+          <p>Add or update student information.</p>
+        </div>
+      </div>
+
+      <form id="studentForm" class="student-form">
+        <input type="hidden" id="editId">
+
+        <label>
+          Student ID
+          <input id="studentId" required maxlength="30"
+            placeholder="e.g. CS001">
+        </label>
+
+        <label>
+          Student Name
+          <input id="studentName" required maxlength="80"
+            placeholder="Enter full name">
+        </label>
+
+        <label>
+          Department
+          <input id="department" required maxlength="60"
+            placeholder="e.g. Computer Science">
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" id="saveStudent" class="primary">
+            Add Student
+          </button>
+          <button type="button" id="cancelEdit" class="secondary"
+            hidden>Cancel Edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Daily Attendance</h2>
+          <p>Select a date and record each student's status.</p>
+        </div>
+        <label class="date-field">
+          Attendance Date
+          <input type="date" id="attendanceDate" required>
+        </label>
+      </div>
+
+      <div class="attendance-tools">
+        <label>
+          Search students
+          <input type="search" id="searchInput"
+            placeholder="Name, student ID or department">
+        </label>
+
+        <label>
+          Filter by status
+          <select id="statusFilter">
+            <option value="all">All students</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+            <option value="Late">Late</option>
+            <option value="Leave">Leave</option>
+            <option value="Not Marked">Not Marked</option>
+            <option value="Low Attendance">Low Attendance</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Attendance %</th>
+              <th>Status for Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceTable"></tbody>
+        </table>
+      </div>
+
+      <p id="emptyMessage" class="empty-message" hidden>
+        No students found. Add a student to get started.
+      </p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Student Attendance History</h2>
+          <p>View attendance records for an individual student.</p>
+        </div>
+      </div>
+
+      <label class="history-select">
+        Choose Student
+        <select id="historyStudent">
+          <option value="">Select a student</option>
+        </select>
+      </label>
+
+      <div id="historySummary" class="history-summary"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <p>Student Attendance Tracker · HTML · CSS · JavaScript</p>
+      <p>Records are stored locally in this browser.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
